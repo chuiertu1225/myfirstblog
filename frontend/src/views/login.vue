@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { login } from '@/api/login'
 export default {
   data () {
     return {
@@ -46,7 +47,9 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          login(this.loginData).then((res) => {
+            console.log(res)
+          })
         } else {
           this.$Message.error('Fail!')
         }
