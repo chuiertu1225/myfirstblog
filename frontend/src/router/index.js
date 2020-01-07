@@ -20,6 +20,15 @@ export default new Router({
       meta: {
         title: '首页'
       }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: page('login'),
+      meta: {
+        title: '登录'
+      }
     }
+
   ]
 })

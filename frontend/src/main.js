@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
+import '@/styles/index.scss' // global scss
 
 Vue.use(ViewUI)
 
