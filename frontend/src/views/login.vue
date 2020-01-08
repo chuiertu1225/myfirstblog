@@ -37,8 +37,8 @@ export default {
           { required: true, message: 'Please fill in the user name', trigger: 'blur' }
         ],
         pwd: [
-          { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-          { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
+          { required: true, message: 'Please fill in the password.', trigger: 'blur' }
+          // { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
         ]
       }
     }

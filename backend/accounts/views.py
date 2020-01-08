@@ -8,7 +8,6 @@ from accounts.serializers import LoginSerializer
 class Login(generics.GenericAPIView):
     serializer_class = LoginSerializer
     def post(self,request):
-
         serializer = self.get_serializer(data = request.data)
         print(serializer.is_valid(raise_exception=True))
         if serializer.is_valid(raise_exception=True):

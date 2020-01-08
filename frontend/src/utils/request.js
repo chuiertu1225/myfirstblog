@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../router'
+import { Message, Modal } from 'view-design'
 // import { MessageBox, Message } from 'element-ui'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
@@ -66,14 +67,14 @@ service.interceptors.response.use(
       if (res.code === 40404) {
         router.push({ path: '/404' })
       } else if (res.code === 61000 || res.code === 61001 || res.code === 61002 || res.code === 61003 || res.code === 61004) {
-        this.$Modal.confirm({
+        Modal.confirm({
           title: 'RELOG',
           content: res.msg + '确认登录',
           onOk: () => {
-            this.$Message.info('Clicked ok')
+            Message.info('Clicked ok')
           },
           onCancel: () => {
-            this.$Message.info('Clicked cancel')
+            Message.info('Clicked cancel')
           }
         })
         // to re-login
@@ -92,7 +93,7 @@ service.interceptors.response.use(
         //   type: 'error',
         //   duration: 5 * 1000
         // })
-        this.$Message.error({
+        Message.error({
           content: res.msg || '网络错误',
           during: 5
         })
@@ -107,7 +108,7 @@ service.interceptors.response.use(
     console.log('err: ' + error) // for debug
     // 403都规定为用户没有访问权限
     if (error.message.trim().endsWith('403')) { error.message = '没有访问权限' }
-    this.$Message.error({
+    Message.error({
       content: error.msg || '网络错误',
       during: 5
     })
