@@ -1,24 +1,19 @@
-
-# Create your views here.
+from django.shortcuts import render
+from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from accounts.models import User
+from accounts.serializers import LoginSerializer
 
 
-class Login(APIView):
+class Login(generics.GenericAPIView):
+    serializer_class = LoginSerializer
     def post(self,request):
-        password = request.data.get('pwd')
-        print(request.data)
-        user = request.data.get('user')
-        print(user)
-        a = User.objects.filter(username=user).count()
-        print(a)
-        if a:
-            return Response({
-                "code":20000,
-                "msg":'success'
-            })
-        return Response({
-            "code":20000,
-            "msg":'fail'
-        })
+        serializer = self.get_serializer(data = request.data)
+        print(serializer.is_valid(raise_exception=True))
+        if serializer.is_valid(raise_exception=True):
+            try:
+                user = serializer.validated_data['user']
+                User.objects.get(username = user)
+                return Response({'code':20000,'msg':'Success'})
+            except :
+                return Response({'code':50012,'msg':'用户名异常'})

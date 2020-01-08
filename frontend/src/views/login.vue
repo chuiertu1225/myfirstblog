@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { login } from '@/api/login'
+import {login} from '@/api/login'
 export default {
   data () {
     return {
@@ -37,8 +37,8 @@ export default {
           { required: true, message: 'Please fill in the user name', trigger: 'blur' }
         ],
         pwd: [
-          { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-          { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
+          { required: true, message: 'Please fill in the password.', trigger: 'blur' }
+          // { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
         ]
       }
     }
@@ -49,6 +49,7 @@ export default {
         if (valid) {
           login(this.loginData).then((res) => {
             console.log(res)
+            this.$Message.success('Success!')
           })
         } else {
           this.$Message.error('Fail!')
