@@ -9,11 +9,12 @@ class Login(generics.GenericAPIView):
     serializer_class = LoginSerializer
     def post(self,request):
         serializer = self.get_serializer(data = request.data)
-        print(serializer.is_valid(raise_exception=True))
         if serializer.is_valid(raise_exception=True):
             try:
                 user = serializer.validated_data['user']
-                User.objects.get(username = user)
+                item = User.objects.get(username=user)
+                if item.password != serializer.validated_data['pwd']:
+                    return Response({'code':50012,'msg':'密码错误'})
                 return Response({'code':20000,'msg':'Success'})
             except :
-                return Response({'code':50012,'msg':'用户名异常'})
+                return Response({'code':50012,'msg':'用户名不存在'})
