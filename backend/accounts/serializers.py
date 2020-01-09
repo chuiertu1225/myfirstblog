@@ -15,4 +15,4 @@ class LoginSerializer(serializers.Serializer):
         if len(pwd)>=6:
             return pwd
         else:
-            return Response({'code':'50012','msg':'密码格式错误'})
+            raise Exception('密码小于6位数', 50012)
