@@ -6,29 +6,31 @@ Vue.use(Router)
 
 const page = (name) => () => import('@/views/' + name)
 
-export default new Router({
-  routes: [
-    // {
-    //   path: '/',
-    //   name: 'HelloWorld',
-    //   component: HelloWorld
-    // },
-    {
-      path: '/',
-      name: 'Main',
-      component: page('main'),
-      meta: {
-        title: '首页'
-      }
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: page('login'),
-      meta: {
-        title: '登录'
-      }
+const routes = [
+  {
+    path: '/',
+    name: 'Main',
+    component: page('main'),
+    meta: {
+      title: '首页'
     }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: page('login'),
+    meta: {
+      title: '登录'
+    }
+  }
+]
 
-  ]
+const router = new Router({
+  routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   console.log(222)
+//   next()
+// })
+export default router

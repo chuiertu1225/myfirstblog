@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import ViewUI from 'view-design'
+import '@/router/permission.js'
 import 'view-design/dist/styles/iview.css'
 import '@/styles/index.scss' // global scss
 
