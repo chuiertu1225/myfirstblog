@@ -4,6 +4,7 @@ from accounts.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = '__all__'
@@ -15,4 +16,4 @@ class LoginSerializer(serializers.Serializer):
         if len(pwd)>=6:
             return pwd
         else:
-            raise Exception('密码小于6位数', 50012)
+            raise serializers.ValidationError("小于6位数")

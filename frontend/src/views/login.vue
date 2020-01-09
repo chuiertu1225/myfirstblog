@@ -14,7 +14,7 @@
                 </i-input>
           </FormItem>
            <FormItem >
-               <Button type="primary" @click="handleSubmit('login')">注册</Button>
+               <Button type="primary" @click="handleRegister('login')">注册</Button>
                <Button type="primary" @click="handleSubmit('login')">登录</Button>
           </FormItem>
         </Form>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {login} from '@/api/login'
+import { login, register } from '@/api/login'
 export default {
   data () {
     return {
@@ -44,6 +44,11 @@ export default {
     }
   },
   methods: {
+    handleRegister (name) {
+      register().then((res) => {
+        console.log(res)
+      })
+    },
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {

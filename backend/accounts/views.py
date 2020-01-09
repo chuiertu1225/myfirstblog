@@ -7,7 +7,7 @@ from accounts.serializers import LoginSerializer
 
 class Login(generics.GenericAPIView):
     serializer_class = LoginSerializer
-    def post(self,request):
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data = request.data)
         if serializer.is_valid(raise_exception=True):
             try:
@@ -18,3 +18,7 @@ class Login(generics.GenericAPIView):
                 return Response({'code':20000,'msg':'Success'})
             except :
                 return Response({'code':50012,'msg':'用户名不存在'})
+
+class Register(generics.CreateAPIView):
+    def post(self, request, *args, **kwargs):
+        return Response({'code':20001,'msg':'注册成功'})
