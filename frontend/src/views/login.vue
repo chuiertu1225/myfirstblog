@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { login, register } from '@/api/login'
+import { register } from '@/api/login'
 export default {
   data () {
     const validatePass = (rule, value, callback) => {
@@ -134,12 +134,12 @@ export default {
     goLogin (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          login(this.loginData).then((res) => {
-            console.log(res)
-            this.$Message.success('Success!')
-          })
-        } else {
-          this.$Message.error('Fail!')
+          this.$store.dispatch('user/login', this.loginData)
+          // login(this.loginData).then((res) => {
+          //   console.log(res)
+          //   this.$Message.error('登录成功')
+          //   this.$router.push('/')
+          // })
         }
       })
     }
@@ -153,11 +153,9 @@ html {
     overflow: -moz-hidden-unscrollable;
     height: 100%;
 }
-
 body::-webkit-scrollbar {
     display: none;
 }
-
 .app-container{
     background-color: #fafafa;
     height: 100%;

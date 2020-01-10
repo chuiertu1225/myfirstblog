@@ -59,7 +59,7 @@ service.interceptors.response.use(
      * You can also judge the status by HTTP Status Code
      */
   response => {
-    const res = response
+    const res = response.data
     // if the custom code is not 20000, it is judged as an error.
     // code小于40000认为是成功的请求
     if (res.code >= 40000) {
@@ -107,7 +107,11 @@ service.interceptors.response.use(
   error => {
     console.log('err: ' + error) // for debug
     // 403都规定为用户没有访问权限
-    if (error.message.trim().endsWith('403')) { error.message = '没有访问权限' }
+    if (error.message.trim().endsWith('403')) {
+      error.message = '没有访问权限'
+    } else if (error.message.trim().endsWith('400')) {
+      error.msg = JSON.stringify(error.response.data)
+    }
     Message.error({
       content: error.msg || '网络错误',
       during: 5

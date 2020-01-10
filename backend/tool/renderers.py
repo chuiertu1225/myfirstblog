@@ -5,7 +5,7 @@ class JSONRenderer(JR):
     def render(self, data, accepted_media_type=None, renderer_context=None):
         response = renderer_context['response']
         if response.status_code == 400:
-            data = {"code": 50002,"msg": "上传字段有问题"}
+            pass
         elif response.status_code == 403:
             data = {"code": 50009, "msg": "没有权限"}
         elif response.status_code == 404:
