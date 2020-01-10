@@ -1,0 +1,7 @@
+.fade-left-leave-active {
+transition: all .5s ease;
+}
+ .fade-left-leave-to{
+transform: translateX(100px);
+opacity: 0;
+}

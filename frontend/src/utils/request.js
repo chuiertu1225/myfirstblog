@@ -59,7 +59,7 @@ service.interceptors.response.use(
      * You can also judge the status by HTTP Status Code
      */
   response => {
-    const res = response.data
+    const res = response
     // if the custom code is not 20000, it is judged as an error.
     // code小于40000认为是成功的请求
     if (res.code >= 40000) {
@@ -94,7 +94,7 @@ service.interceptors.response.use(
         //   duration: 5 * 1000
         // })
         Message.error({
-          content: res.msg || '网络错误',
+          content: res.msg,
           during: 5
         })
         return Promise.reject(res)

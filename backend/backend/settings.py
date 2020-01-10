@@ -76,9 +76,12 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     # 配置全局分页类型和每页数量
+    # 'EXCEPTION_HANDLER': "tool.handler.rest_exception_handler",
+    'DATETIME_FORMAT': '%Y-%m-%d %H:%M:%S',
+    'DEFAULT_RENDERER_CLASSES': ['tool.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer', ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 #
 # CACHES = {

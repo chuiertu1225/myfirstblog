@@ -1,49 +1,51 @@
 <template>
   <div class="app-container">
       <div class="login">
-        <div class="title">用户注册/登录</div>
-        <Form v-if="!go_register" ref="login" :model="loginData" :rules="rules">
-          <FormItem prop="user">
-              <i-input type="text" v-model="loginData.user" placeholder="Username/Email">
-                    <Icon type="ios-person-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-          <FormItem prop="pwd">
-              <i-input type="password" v-model="loginData.pwd" placeholder="Password">
-                    <Icon type="ios-lock-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-           <FormItem >
-               <Button type="primary" @click="handleRegister('login')">注册</Button>
-               <Button type="primary" @click="goLogin('login')">登录</Button>
-          </FormItem>
-        </Form>
-        <Form v-if="go_register" ref="register" :model="registerData" :rules="rules">
-           <FormItem prop="user">
-              <i-input type="text" v-model="registerData.user" placeholder="Username">
-                  <Icon type="ios-person-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-          <FormItem prop="mail">
-              <i-input type="text" v-model="registerData.mail" placeholder="Mail">
-                  <Icon type="ios-person-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-          <FormItem prop="pwd">
-              <i-input type="password" v-model="registerData.pwd" placeholder="Password">
-                  <Icon type="ios-lock-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-          <FormItem prop="pwd_confirm">
-              <i-input type="password" v-model="registerData.pwd_confirm" placeholder="Confirm Password">
-                  <Icon type="ios-lock-outline" slot="prepend"></Icon>
-              </i-input>
-          </FormItem>
-          <FormItem >
-              <Button type="primary" @click="goRegister('register')">注册</Button>
-              <Button type="primary" @click="handleLogin()">去登录</Button>
-          </FormItem>
-        </Form>
+        <div class="title">用户{{go_register?'注册':'登录'}}</div>
+        <transition name="fade-left">
+          <Form v-if="!go_register" ref="login" :model="loginData" :rules="rules" key="1">
+            <FormItem prop="user">
+                <i-input type="text" v-model="loginData.user" placeholder="Username/Email">
+                      <Icon type="ios-person-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem prop="pwd">
+                <i-input type="password" v-model="loginData.pwd" placeholder="Password">
+                      <Icon type="ios-lock-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem >
+                <Button type="primary" @click="handleRegister('login')">去注册</Button>
+                <Button type="primary" @click="goLogin('login')">登录</Button>
+            </FormItem>
+          </Form>
+          <Form v-if="go_register" ref="register" :model="registerData" :rules="rules" key="2">
+            <FormItem prop="username">
+                <i-input type="text" v-model="registerData.username" placeholder="Username">
+                    <Icon type="ios-person-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem prop="email">
+                <i-input type="text" v-model="registerData.email" placeholder="Mail">
+                    <Icon type="ios-mail-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem prop="password">
+                <i-input type="password" v-model="registerData.password" placeholder="Password">
+                    <Icon type="ios-lock-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem prop="password_confirm">
+                <i-input type="password" v-model="registerData.password_confirm" placeholder="Confirm Password">
+                    <Icon type="ios-lock-outline" slot="prefix"></Icon>
+                </i-input>
+            </FormItem>
+            <FormItem >
+                <Button type="primary" @click="goRegister('register')">注册</Button>
+                <Button type="primary" @click="handleLogin()">去登录</Button>
+            </FormItem>
+          </Form>
+        </transition>
       </div>
   </div>
 </template>
@@ -56,9 +58,9 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.registerData.pwd_confirm !== '') {
+        if (this.registerData.password_confirm !== '') {
           // 对第二个密码框单独验证
-          this.$refs.register.validateField('pwd_confirm')
+          this.$refs.register.validateField('password_confirm')
         }
         callback()
       }
@@ -66,7 +68,7 @@ export default {
     const validatePassCheck = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.registerData.pwd) {
+      } else if (value !== this.registerData.password) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -78,23 +80,30 @@ export default {
         pwd: undefined
       },
       registerData: {
-        user: undefined,
-        mail: undefined,
-        pwd: undefined,
-        pwd_confirm: undefined
+        username: undefined,
+        email: undefined,
+        password: undefined,
+        password_confirm: undefined
       },
       rules: {
         user: [
+          { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+        ],
+        username: [
           { required: true, message: 'Please fill in the user name', trigger: 'blur' }
         ],
         pwd: [
           { required: true, message: 'Please fill in the password.', trigger: 'blur' },
           { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
         ],
-        mail: [
+        email: [
           { validator: validatePass, trigger: 'blur' }
         ],
-        pwd_confirm: [
+        password: [
+          { required: true, message: 'Please fill in the password.', trigger: 'blur' },
+          { type: 'string', min: 6, message: 'The password length can`t be less than 6 bits', trigger: 'blur' }
+        ],
+        password_confirm: [
           { validator: validatePassCheck, trigger: 'blur' }
         ]
       },
@@ -139,6 +148,16 @@ export default {
 </script>
 
 <style scope lang="scss">
+@import '@/styles/index.scss';
+html {
+    overflow: -moz-hidden-unscrollable;
+    height: 100%;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .app-container{
     background-color: #fafafa;
     height: 100%;
@@ -152,12 +171,12 @@ export default {
         .title{
             width: 130px;
             margin-top:50px;
-            margin-left:90px;
+            margin-left:110px;
             color: #999;
             font-size:18px;
         }
         .ivu-form{
-            padding-top: 100px;
+            padding-top: 80px;
             padding-left: 10px;
             padding-right: 10px;
             height: 100%;
