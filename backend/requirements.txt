@@ -10,7 +10,7 @@ bottle==0.12.17
 cffi==1.13.1
 chardet==3.0.4
 coverage==4.5.4
-cryptography==2.8
+cryptography==3.2
 django==2.2.8
 django-appconf==1.0.3
 django-autoslug==1.9.6
