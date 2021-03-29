@@ -39,7 +39,7 @@ packaging==19.2
 pillow==6.2.1
 pip==19.3.1
 pycparser==2.19
-pygments==2.4.2
+pygments==2.7.4
 pylint==2.4.3
 pyparsing==2.4.2
 python-dateutil==2.8.0
