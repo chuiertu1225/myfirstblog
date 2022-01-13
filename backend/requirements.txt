@@ -36,7 +36,7 @@ mistune==0.8.4
 mysqlclient==1.4.4
 olefile==0.46
 packaging==19.2
-pillow==6.2.1
+pillow==9.0.0
 pip==19.3.1
 pycparser==2.19
 pygments==2.4.2
