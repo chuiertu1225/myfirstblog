@@ -50,7 +50,7 @@ pytz==2019.3
 raven==6.10.0
 requests==2.22.0
 rjsmin==1.1.0
-setuptools==42.0.2
+setuptools==65.5.1
 shortuuid==0.5.0
 six==1.12.0
 sqlparse==0.3.0
